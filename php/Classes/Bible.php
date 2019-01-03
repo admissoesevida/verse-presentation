@@ -97,11 +97,12 @@ class BibleAPI
    * @param int $book
    * @param int $chapter
    * @param int $verse
+   * @return bool
    */
   public function setVerse($book, $chapter, $verse)
   {
     if (!is_numeric($book) || !is_numeric($chapter) || !is_numeric($verse)) {
-      return;
+      return false;
     }
 
     $checkIfExists = $this->bible->query("
