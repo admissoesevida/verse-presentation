@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+#background {
+  position: absolute;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(../img/1.jpg);
+  filter: brightness(10%);
+  background-size: cover;
+  z-index: 0;
+}
+
+main {
+  position: absolute;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+  z-index: 1;
+  opacity: 1;
+  transition: all 200ms;
+}
+
+main.off {
+  opacity: 0;
+}
+
+#verse,
+#reference {
+  text-shadow: 0 0 2px #000;
+  color: #fff;
+  text-align: center;
+}
+
+#verse {
+  font-size: 60px;
+}
+
+#reference {
+  font-size: 36px;
+}
