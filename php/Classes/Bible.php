@@ -31,6 +31,11 @@ class BibleAPI
   private $bible;
 
   /**
+   * @var int
+   */
+  private $currentVersion;
+
+  /**
    * @var array
    */
   private $bibleIndex = [
@@ -42,7 +47,7 @@ class BibleAPI
   /**
    * @var int
    */
-  private $book = 1;
+  private $book = 0;
 
   /**
    * @var int
@@ -64,16 +69,20 @@ class BibleAPI
     $this->versionAcf = $connection["biblia-acf"];
     $this->versionNvi = $connection["biblia-nvi"];
 
+    $this->currentVersion = 2;
     $this->bible = $this->versionAcf;
 
-    $isEmpty = $this->appDB->query("SELECT `id` FROM `current_verse`")->num_rows === 0;
-    if ($isEmpty) {
-      $initAppDb = "INSERT INTO `current_verse`(`id`, `idVerse`, `idVersion`) VALUES (1, 1, 1);";
-      $initialization = $this->appDB->query($initAppDb);
+    $currentVerse = $this->appDB->query("
+      SELECT `id`, `bookId`, `book`, `abbrev`, `chapter`, `verse`, `text` 
+      FROM `current_verse`
+    ");
 
-      if (!$initialization) {
-        throw new Exception("Database initialization failed", 500);
-      }
+    if ($currentVerse->num_rows !== 0) {
+      $verseData = $currentVerse->fetch_assoc();
+
+      $this->book = $verseData["bookId"];
+      $this->chapter = $verseData["chapter"];
+      $this->verse = $verseData["verse"];
     }
   }
 
@@ -118,16 +127,54 @@ class BibleAPI
     $this->chapter = $chapter;
     $this->verse = $verse;
 
+    $isCurrentVerseEmpty = $this->appDB->query("SELECT * FROM `current_verse`")->num_rows === 0;
+
+    if ($isCurrentVerseEmpty) {
+      return $this->executeInsertVerse();
+    } else {
+      return $this->executeUpdateVerse();
+    }
+  }
+
+  /**
+   * @return bool
+   */
+  private function executeUpdateVerse()
+  {
     $verseData = $this->getVerseData();
 
-    return $this->appDB->query("
-        UPDATE `current_verse` SET 
-          `book`= '$verseData[book]',
-          `abbrev`= '$verseData[abbrev]',
-          `chapter`= $verseData[chapter],
-          `verse`= $verseData[verse],
-          `text`= '$verseData[text]'
-        ");
+    $ssql = "
+      UPDATE `current_verse` SET 
+        `bookId`= '$verseData[bookId]',
+        `book`= '$verseData[book]',
+        `abbrev`= '$verseData[abbrev]',
+        `chapter`= $verseData[chapter],
+        `verse`= $verseData[verse],
+        `text`= '$verseData[text]',
+        `version`= '$verseData[version]'";
+
+    return $this->appDB->query($ssql);
+  }
+
+  /**
+   * @return bool
+   */
+  private function executeInsertVerse()
+  {
+    $verseData = $this->getVerseData();
+
+    $ssql = "
+      INSERT INTO `current_verse` (`bookId`, `book`, `abbrev`, `chapter`, `verse`, `text`, `version`) 
+      VALUES 
+        ('$verseData[bookId]',
+        '$verseData[book]',
+        '$verseData[abbrev]',
+        '$verseData[chapter]',
+        '$verseData[verse]',
+        '$verseData[text]',
+        '$verseData[version]')";
+
+    return $this->appDB->query($ssql);
   }
 
   /**
@@ -149,9 +196,18 @@ class BibleAPI
 
       $version = "version$bible";
       $this->bible = $this->$version;
+      $this->currentVersion = $bibleId;
 
       $this->reloadVerse();
     }
+  }
+
+  /**
+   * @return int
+   */
+  public function getCurrentVersion()
+  {
+    return $this->currentVersion;
   }
 
   /**
@@ -159,7 +215,7 @@ class BibleAPI
    */
   public function getVerseData()
   {
-    $ssql = "SELECT v.id, b.id as bookId, b.name as book, b.abbrev, v.chapter, v.verse, v.text 
+    $ssql = "SELECT v.id, b.id as bookId, b.name as book, b.abbrev, v.chapter, v.verse, v.text, v.version 
         FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id` 
         WHERE v.`book` = $this->book AND v.`chapter` = $this->chapter AND v.`verse` = $this->verse";
 
