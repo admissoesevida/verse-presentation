@@ -5,24 +5,13 @@ require "php/Classes/Bible.php";
 
 $bible = new BibleAPI;
 
-$results = $bible->searchVerses("Prov 1 2")[0];
-$bible->setVerse($results["bookId"], $results['chapter'], $results['verse']);
+$chapter = isset($_GET["c"]) ? $_GET["c"] : 1;
+$verse = isset($_GET["v"]) ? $_GET["v"] : 1;
 
-$verseObject = [
-  "bookId" => 1,
-  "chapter" => 'a',
-  "verse" => 1
-];
+$results = $bible->searchVerses("Sal $chapter $verse")[0];
+var_dump($bible->setVerse($results["bookId"], $results['chapter'], $results['verse']));
 
-$hasCorrectKeys = array_keys($verseObject) !== ["bookId", "chapter", "verse"];
-
-$hasCorrectTypes = count(array_filter(array_map(function ($item) {
-  return !is_numeric($item);
-}, $verseObject))) === 0;
-
-vlog($verseObject);
-
-var_dump($hasCorrectTypes);
+vlog($bible->getVerseData());
 
 /* 
 vlog($results);
