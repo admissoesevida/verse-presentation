@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'Biryani Regular';
+  src: url('fonts/Biryani/Biryani-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Biryani Black';
+  src: url('fonts/Biryani/Biryani-Black.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Candal';
+  src: url('fonts/Candal/Candal.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Martel Regular';
+  src: url('fonts/Martel/Martel-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Martel Bold';
+  src: url('fonts/Martel/Martel-Bold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Martel Light';
+  src: url('fonts/Martel/Martel-Light.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'MartelSans Regular';
+  src: url('fonts/Martel_Sans/MartelSans-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'MartelSans Bold';
+  src: url('fonts/Martel_Sans/MartelSans-Bold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Tienne Light';
+  src: url('fonts/Tienne/Tienne-Light.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Tienne Bold';
+  src: url('fonts/Tienne/Tienne-Bold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Tienne Regular';
+  src: url('fonts/Tienne/Tienne-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Black';
+  src: url('fonts/Vollkorn/Vollkorn-Black.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Black Italic';
+  src: url('fonts/Vollkorn/Vollkorn-BlackItalic.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Bold';
+  src: url('fonts/Vollkorn/Vollkorn-Bold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Bold Italic';
+  src: url('fonts/Vollkorn/Vollkorn-BoldItalic.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Italic';
+  src: url('fonts/Vollkorn/Vollkorn-Italic.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Regular';
+  src: url('fonts/Vollkorn/Vollkorn-Regular.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Semibold';
+  src: url('fonts/Vollkorn/Vollkorn-SemiBold.ttf')  format('truetype');
+}
+
+@font-face {
+  font-family: 'Vollkorn Semibold Italic';
+  src: url('fonts/Vollkorn/Vollkorn-SemiBoldItalic.ttf')  format('truetype');
+}
