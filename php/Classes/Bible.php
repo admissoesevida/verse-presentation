@@ -73,7 +73,7 @@ class BibleAPI
     $this->bible = $this->versionAcf;
 
     $currentVerse = $this->appDB->query("
-      SELECT `id`, `bookId`, `book`, `abbrev`, `chapter`, `verse`, `text` 
+      SELECT `id`, `bookId`, `book`, `abbrev`, `chapter`, `verse`, `text`
       FROM `current_verse`
     ");
 
@@ -115,7 +115,7 @@ class BibleAPI
     }
 
     $checkIfExists = $this->bible->query("
-      SELECT * FROM `verses` 
+      SELECT * FROM `verses`
       WHERE `book`=$book AND `chapter`=$chapter AND `verse`=$verse")
       ->num_rows > 0;
 
@@ -127,6 +127,14 @@ class BibleAPI
     $this->chapter = $chapter;
     $this->verse = $verse;
 
+    return $this->updateAppDB();
+  }
+
+  /**
+   * @return bool
+   */
+  private function updateAppDB()
+  {
     $isCurrentVerseEmpty = $this->appDB->query("SELECT * FROM `current_verse`")->num_rows === 0;
 
     if ($isCurrentVerseEmpty) {
@@ -144,7 +152,7 @@ class BibleAPI
     $verseData = $this->getVerseData();
 
     $ssql = "
-      UPDATE `current_verse` SET 
+      UPDATE `current_verse` SET
         `bookId`= '$verseData[bookId]',
         `book`= '$verseData[book]',
         `abbrev`= '$verseData[abbrev]',
@@ -164,8 +172,8 @@ class BibleAPI
     $verseData = $this->getVerseData();
 
     $ssql = "
-      INSERT INTO `current_verse` (`bookId`, `book`, `abbrev`, `chapter`, `verse`, `text`, `version`) 
-      VALUES 
+      INSERT INTO `current_verse` (`bookId`, `book`, `abbrev`, `chapter`, `verse`, `text`, `version`)
+      VALUES
         ('$verseData[bookId]',
         '$verseData[book]',
         '$verseData[abbrev]',
@@ -183,6 +191,68 @@ class BibleAPI
   public function getVerse()
   {
     return $this->verse;
+  }
+
+  /**
+   * @return int
+   */
+  public function getCurrentVerseId()
+  {
+    $currentId = $this->bible->query("
+      SELECT `id` FROM `verses`
+      WHERE `book`=$this->book AND `chapter`=$this->chapter AND `verse`=$this->verse");
+
+    if (!$currentId) {
+      return;
+    }
+
+    $row = $currentId->fetch_assoc();
+
+    return $row["id"];
+  }
+
+  /**
+   * @return bool
+   */
+  public function updateVerseById($verseId)
+  {
+    $verse = $this->bible->query("
+        SELECT v.id, b.id as bookId, b.name as book, b.abbrev, v.chapter, v.verse, v.text, v.version
+        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id`
+        WHERE v.`id` = $verseId
+      ");
+
+    if (!$verse) {
+      return false;
+    }
+
+    $verseData = $verse->fetch_assoc();
+
+    $this->book = $verseData["bookId"];
+    $this->chapter = $verseData["chapter"];
+    $this->verse = $verseData["verse"];
+
+    return $this->updateAppDB();
+  }
+
+  /**
+   * @return bool
+   */
+  public function nextVerse()
+  {
+    $currentId = $this->getCurrentVerseId();
+
+    return $this->updateVerseById($currentId + 1);
+  }
+
+  /**
+   * @return bool
+   */
+  public function previousVerse()
+  {
+    $currentId = $this->getCurrentVerseId();
+
+    return $this->updateVerseById($currentId - 1);
   }
 
   /**
@@ -215,8 +285,8 @@ class BibleAPI
    */
   public function getVerseData()
   {
-    $ssql = "SELECT v.id, b.id as bookId, b.name as book, b.abbrev, v.chapter, v.verse, v.text, v.version 
-        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id` 
+    $ssql = "SELECT v.id, b.id as bookId, b.name as book, b.abbrev, v.chapter, v.verse, v.text, v.version
+        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id`
         WHERE v.`book` = $this->book AND v.`chapter` = $this->chapter AND v.`verse` = $this->verse";
 
     $query = $this->bible->query($ssql)->fetch_assoc();
@@ -273,8 +343,8 @@ class BibleAPI
     }
 
     $searchForBookNames = "
-      SELECT * 
-      FROM `books` 
+      SELECT *
+      FROM `books`
       WHERE " . implode(" OR ", $queryBookNames) . ";";
 
     $bookNames = $this->bible->query($searchForBookNames);
@@ -283,8 +353,8 @@ class BibleAPI
 
     if ($bookNames->num_rows > 0) {
       while ($book = $bookNames->fetch_assoc()) {
-        $ssql = "SELECT v.id, b.id as bookId, b.name as book, v.chapter, v.verse, v.text 
-        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id` 
+        $ssql = "SELECT v.id, b.id as bookId, b.name as book, v.chapter, v.verse, v.text
+        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id`
         WHERE b.`id` = $book[id] AND v.`chapter` = $queryData[chapterId] AND v.`verse` = $queryData[verseId]";
 
         $result = $this->bible->query($ssql)->fetch_assoc();
@@ -311,8 +381,8 @@ class BibleAPI
     }
 
     $searchForBookAbbrevs = "
-      SELECT * 
-      FROM `books` 
+      SELECT *
+      FROM `books`
       WHERE " . implode(" OR ", $queryBookAbbrevs) . ";";
 
     $bookAbbrevs = $this->bible->query($searchForBookAbbrevs);
@@ -321,8 +391,8 @@ class BibleAPI
 
     if ($bookAbbrevs->num_rows > 0) {
       while ($book = $bookAbbrevs->fetch_assoc()) {
-        $ssql = "SELECT v.id, b.id as bookId, b.name as book, v.chapter, v.verse, v.text 
-        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id` 
+        $ssql = "SELECT v.id, b.id as bookId, b.name as book, v.chapter, v.verse, v.text
+        FROM `verses` v LEFT JOIN `books` b ON v.`book` = b.`id`
         WHERE b.`id` = $book[id] AND v.`chapter` = $queryData[chapterId] AND v.`verse` = $queryData[verseId]";
 
         $result = $this->bible->query($ssql)->fetch_assoc();

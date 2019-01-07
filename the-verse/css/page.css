@@ -1,3 +1,6 @@
+@import url('../../css/fonts.css');
+@import url('../../css/loader.css');
+
 body {
   margin: 0;
 }
@@ -37,15 +40,39 @@ main.off {
 
 #verse,
 #reference {
+  font-family: 'Martel Bold', serif;
+  font-style: normal;
   text-shadow: 0 0 2px #000;
   color: #fff;
   text-align: center;
 }
 
 #verse {
-  font-size: 60px;
+  font-size: 2.5em;
 }
 
 #reference {
-  font-size: 36px;
+  font-size: 2em;
+  opacity: 0.5;
+}
+
+#openFullScreen {
+  position: absolute;
+  opacity: 0.1;
+  bottom: 20px;
+  right: 20px;
+  background-image: url('../../css/svg/fullscreen.svg');
+  background-size: cover;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  transition: all 300ms ease-in;
+}
+
+#openFullScreen:hover {
+  opacity: 1;
+}
+
+#openFullScreen.isFullScreen {
+  background-image: url('../../css/svg/normalscreen.svg');
 }

@@ -1,0 +1,21 @@
+#loader.active {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
+  border: 6px solid rgba(255, 255, 255, 0.2);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 800ms ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(720deg);
+  }
+}
