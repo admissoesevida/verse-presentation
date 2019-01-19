@@ -14,3 +14,11 @@ function vlog($item)
   print_r($item);
   echo "<br>";
 }
+
+function response($content, $code = 200) {
+  header('Content-Type: application/json');
+  echo json_encode([
+    "code" => $code,
+    "content" => $content
+  ]);
+}

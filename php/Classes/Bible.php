@@ -69,8 +69,19 @@ class BibleAPI
     $this->versionAcf = $connection["biblia-acf"];
     $this->versionNvi = $connection["biblia-nvi"];
 
-    $this->currentVersion = 2;
-    $this->bible = $this->versionAcf;
+    $currentVersion = $this->appDB->query("SELECT `id` FROM `current_version`");
+
+    if ($currentVersion->num_rows !== 0) {
+      $row = $currentVersion->fetch_assoc();
+      $this->currentVersion = $row["id"];
+
+      $bible = $this->bibleIndex[$this->currentVersion];
+      $version = "version$bible";
+      $this->bible = $this->$version;
+    } else {
+      $this->currentVersion = 2;
+      $this->bible = $this->versionAcf;
+    }
 
     $currentVerse = $this->appDB->query("
       SELECT `id`, `bookId`, `book`, `abbrev`, `chapter`, `verse`, `text`
@@ -135,13 +146,25 @@ class BibleAPI
    */
   private function updateAppDB()
   {
+    $isCurrentVersionEmpty = $this->appDB->query("SELECT * FROM `current_version`")->num_rows === 0;
+
+    $verseUpdated = false;
+    if ($isCurrentVersionEmpty) {
+      $verseUpdated = $this->executeInsertVersion();
+    } else {
+      $verseUpdated = $this->executeUpdateVersion();
+    }
+
     $isCurrentVerseEmpty = $this->appDB->query("SELECT * FROM `current_verse`")->num_rows === 0;
 
+    $versionUpdated = false;
     if ($isCurrentVerseEmpty) {
-      return $this->executeInsertVerse();
+      $versionUpdated = $this->executeInsertVerse();
     } else {
-      return $this->executeUpdateVerse();
+      $versionUpdated = $this->executeUpdateVerse();
     }
+
+    return $verseUpdated && $versionUpdated;
   }
 
   /**
@@ -182,6 +205,27 @@ class BibleAPI
         '$verseData[text]',
         '$verseData[version]')";
 
+    return $this->appDB->query($ssql);
+  }
+
+  /**
+   * @return bool
+   */
+  private function executeUpdateVersion()
+  {
+    $ssql = "UPDATE `current_version` SET `id`= '$this->currentVersion'";
+
+    return $this->appDB->query($ssql);
+  }
+
+  /**
+   * @return bool
+   */
+  private function executeInsertVersion()
+  {
+    $ssql = "INSERT INTO `current_version` (`id`) VALUES ('$this->currentVersion')";
+
+    echo $ssql;
     return $this->appDB->query($ssql);
   }
 
@@ -269,7 +313,10 @@ class BibleAPI
       $this->currentVersion = $bibleId;
 
       $this->reloadVerse();
+      return true;
     }
+
+    return false;
   }
 
   /**
