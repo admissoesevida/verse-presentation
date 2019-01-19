@@ -3,7 +3,7 @@
 
 body {
   margin: 0;
-  background-color: #111;
+  background-color: #000;
 }
 
 body * {
@@ -15,10 +15,25 @@ body * {
   display: flex;
   height: 100vh;
   width: 100vw;
-  filter: brightness(10%);
+  filter: brightness(10%) blur(3px);
+  background-image: url(../img/1.jpg);
   background-size: cover;
   z-index: 0;
-  transition: all 1500ms ease-in-out;
+  animation: fadeIn 900ms ease-in-out;
+}
+
+#background.black {
+    animation: fadeOut 900ms ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+@keyframes fadeOut {
+    0% {opacity: 1}
+    100% {opacity: 0}
 }
 
 main {
@@ -46,6 +61,8 @@ main.off {
   text-shadow: 0 0 2px #000;
   color: #fff;
   text-align: center;
+  max-width: 800px;
+  line-height: 1.5;
 }
 
 #verse {
@@ -55,6 +72,10 @@ main.off {
 #reference {
   font-size: 2em;
   opacity: 0.5;
+}
+
+#mobile-controls {
+  display: none;
 }
 
 #openFullScreen {
@@ -76,4 +97,51 @@ main.off {
 
 #openFullScreen.isFullScreen {
   background-image: url('../../css/svg/normalscreen.svg');
+}
+
+.loader {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  #verse {
+    font-size: 18px;
+  }
+
+  #reference {
+    font-size: 14px;
+  }
+
+  #mobile-controls {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+  }
+
+  #mobile-controls #next,
+  #mobile-controls #prev {
+    top: 0;
+    bottom: 0;
+    position: fixed;
+  }
+
+  #mobile-controls #next {
+    right: 0;
+    width: 45vw;
+  }
+
+  #mobile-controls #prev {
+    left: 0;
+    width: 45vw;
+  }
+
+  #openFullScreen {
+    display: none;
+  }
 }
