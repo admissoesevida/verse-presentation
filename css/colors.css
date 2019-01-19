@@ -1,0 +1,30 @@
+:root {
+    /* Orange Primary Theme */
+    /*--primary-color: #ff9234;
+    --primary-font-color: #FFF;
+
+    --primary-v-color: #ffcd3c;
+    --primary-v-font-color: #FFF;*/
+
+    /* Blue Primary Theme */
+    --primary-color: #87a8d0;
+    --primary-font-color: #000;
+
+    --primary-v-color: #b9ceeb;
+    --primary-v-font-color: #000;
+
+    --secondary-color: #9795cf;
+    --secondary-font-color: #000;
+
+    --error-color: #B00020;
+    --error-font-color: #FFF;
+
+    --bg-primary-color: #393e46;
+    --bg-primary-font-color: #FFF;
+
+    --bg-secondary-color: #222831;
+    --bg-secondary-font-color: #FFF;
+
+    --bg-secondary-v-color: #1b2027;
+    --bg-secondary-v-font-color: #FFF;
+}
