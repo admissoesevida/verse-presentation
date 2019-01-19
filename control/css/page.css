@@ -1,0 +1,256 @@
+@import url('../../css/colors.css');
+@import url('../../css/fonts.css');
+@import url('../../css/loader.css');
+
+body {
+    margin: 0;
+    color: #FFF;
+    background-color: var(--bg-secondary-color);
+}
+
+body * {
+    font-family: 'Candal', sans-serif;
+    box-sizing: border-box;
+}
+
+#logo {
+    text-align: center;
+    margin-top: 18px;
+}
+
+#logo svg {
+    height: 40px;
+    width: 40px;
+    margin: 6px;
+}
+
+#menu {
+    width: 60px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--bg-primary-color);
+}
+
+#menu .navigation {
+    text-align: center;
+    margin-top: 18px;
+}
+
+#menu .navigation .item {
+    display: block;
+    padding: 12px 6px;
+    cursor: pointer;
+    transition: all 300ms ease;
+    user-select: none;
+    text-decoration: none;
+    color: var(--bg-secondary-font-color);
+}
+
+#menu .navigation .item:hover {
+    background-color: var(--bg-secondary-color);
+    color: var(--bg-secondary-font-color);
+}
+
+#menu .navigation .item:active {
+    background-color: var(--primary-color);
+    color: var(--primary-font-color);
+}
+
+#menu .navigation .item svg {
+    height: 24px;
+    width: 24px;
+}
+
+#menu .navigation .item span {
+    display: block;
+    font-size: 8px;
+    margin-top: 6px;
+}
+
+#panel {
+    margin-left: 60px;
+    padding: 20px 40px;
+}
+
+.topbar {
+    display: flex;
+    flex-flow: column;
+}
+
+#current {
+    background-color: var(--bg-secondary-v-color);
+    color: var(--bg-secondary-v-font-color);
+    text-align: center;
+    margin-left: 60px;
+    color: #777;
+    padding: 18px 12px;
+    line-height: 1.5;
+    font-size: 13px;
+    display: flex;
+    flex-flow: row;
+    transition: all 300ms ease;
+}
+
+#current.off .ref:before {
+  content: 'Carregando...';
+  background-color: var(--secondary-color);
+  color: var(--secondary-font-color);
+}
+
+#current .ref {
+    margin-right: 6px;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+#current .ref:before {
+    content: 'Atual';
+    color: var(--primary-font-color);
+    background-color: var(--primary-color);
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 6px 12px;
+    margin: 6px 12px 6px 3px;
+    transition: all 300ms ease;
+}
+
+#current .verse {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+    overflow: hidden;
+    text-align: left;
+    flex-grow: 1;
+}
+
+#search {
+    border: 1px solid black;
+    display: flex;
+}
+
+#search input,
+#search button {
+    padding: 18px 24px;
+    font-size: 18px;
+    color: #FFF;
+    outline: none;
+    transition: all 300ms ease;
+    border: 1px solid var(--primary-color);
+}
+
+#search input {
+    background: transparent;
+    flex-grow: 1;
+}
+
+#search input:focus,
+#search input:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#search button {
+    background-color: var(--primary-color);
+    cursor: pointer;
+    color: var(--primary-font-color);
+    text-transform: uppercase;
+}
+
+#search button:hover {
+    background-color: var(--primary-v-color);
+}
+
+#search button:active {
+    background-color: var(--primary-color);
+}
+
+#version {
+    margin: 12px 0;
+}
+
+#version:before {
+    content: 'Versão: ';
+}
+
+#version input {
+    display: none;
+}
+
+#version label {
+    display: inline-block;
+    padding: 6px 18px;
+    margin: 0 6px;
+    border: 1px solid var(--primary-color);
+    color: var(--bg-primary-font-color);
+    cursor: pointer;
+    transition: all 300ms ease;
+}
+
+#version label:hover {
+    background-color: var(--primary-v-color);
+    color: var(--primary-v-font-color);
+}
+
+#version input:checked + label {
+    background-color: var(--primary-color);
+    color: var(--primary-font-color);
+}
+
+.results .title {
+    margin: 12px 0 24px;
+}
+
+.results table {
+    border-collapse: collapse;
+}
+
+.results table th {
+    text-align: left;
+    background-color: var(--bg-secondary-v-color);
+    color: var(--bg-secondary-v-font-color);
+}
+
+.results table td:first-child {
+    white-space: nowrap;
+}
+
+.results table th,
+.results table td {
+    padding: 12px 16px;
+    font-size: 14px;
+}
+
+.results table tbody tr {
+    transition: all 300ms ease;
+    cursor: pointer;
+    border-bottom: 1px solid var(--bg-secondary-v-color);
+}
+
+.results table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.results table tbody tr:hover {
+    background-color: var(--bg-secondary-v-color);
+    color: var(--bg-secondary-v-font-color);
+}
+
+.results table tbody tr:active {
+    color: var(--primary-color);
+}
+
+.loader {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    border-color: var(--primary-color) !important;
+}
+
+.dash-separator {
+    height: 3px;
+    border-radius: 3px;
+    background: var(--primary-color);
+    width: 60px;
+    margin-top: 36px;
+}

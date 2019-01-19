@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="../css/icon/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../css/icon/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../css/icon/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../css/icon/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="../css/icon/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="../css/icon/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="../css/icon/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../css/icon/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="../css/icon/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="../css/icon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="../css/icon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="../css/icon/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="../css/icon/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="Bíblia Painel"/>
+
+    <link rel="manifest" href="manifest.json">
+
+    <title>Bíblia - Painel</title>
+    <style type="text/css">
+      @import url(css/page.css);
+    </style>
+  </head>
+  <body id="app-panel">
+
+    <div id="current">
+        <span class="ref"></span>
+        <span class="verse"></span>
+    </div>
+
+    <aside id="menu">
+        <div id="logo">
+            <i class="fas fa-bible"></i>
+        </div>
+        <div class="navigation">
+            <div class="item next">
+                <i class="fas fa-angle-right"></i>
+                <span>Próximo</span>
+            </div>
+            <div class="item prev">
+                <i class="fas fa-angle-left"></i>
+                <span>Anterior</span>
+            </div>
+            <a class="item" href="../the-verse" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+                <span>Versículo</span>
+            </a>
+        </div>
+    </aside>
+
+    <main id="panel">
+        <div class="topbar">
+            <div id="search">
+                <input type="text" name="search" placeholder="ex.: Prov 10 22" />
+                <button><i class="fas fa-search"></i></button>
+                <div id="loader" class="loader"></div>
+            </div>
+        </div>
+
+        <div id="version">
+            <input type="radio" name="version" id="acf" checked />
+            <label for='acf'>ACF</label>
+
+            <input type="radio" name="version" id="aa" />
+            <label for='aa'>AA</label>
+
+            <input type="radio" name="version" id="nvi" />
+            <label for='nvi'>NVI</label>
+        </div>
+
+        <div class="dash-separator"></div>
+        <section class="results">
+            <h1 class="title">Resultados mais relevantes</h1>
+            <table cellspacing="0" border="0">
+                <thead>
+                    <th>Referência</th>
+                    <th>Versiculo</th>
+                </thead>
+                <tbody id="results">
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
+                    </tr>
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
+                    </tr>
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
+                    </tr>
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="dash-separator"></div>
+        <section class="results results-less-relevant">
+            <h1 class="title">Resultados menos relevantes</h1>
+            <table cellspacing="0" border="0">
+                <thead>
+                    <th>Referência</th>
+                    <th>Versiculo</th>
+                </thead>
+                <tbody id="results">
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
+                    </tr>
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
+                    </tr>
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
+                    </tr>
+                    <tr data-verse="2">
+                        <td>Salmos 18:48</td>
+                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/font-awesome.js"></script>
+    <script src="../js/loader.js"></script>
+    <script src="../js/navigation.js"></script>
+    <script src="../js/prototypes.js"></script>
+    <script src="../js/helpers.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
