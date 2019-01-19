@@ -25,7 +25,7 @@ if (isset($_POST["lessRelevant"])) {
 }
 
 /**
- * Set the verse, expects an array of 3 numbers 
+ * Set the verse, expects an array of 3 numbers
  */
 if (isset($_PUT["verse"])) {
   try {
@@ -53,25 +53,6 @@ if (isset($_PUT["verse"])) {
     $verseObject["chapter"],
     $verseObject["verse"]
   );
-
-  echo json_encode([
-    "message" => $succeeded ? "Request Succeeded" : "Request Failed",
-  ]);
-  exit;
-}
-
-if (isset($_PUT["bible"])) {
-  $proposed = $_PUT["bible"];
-  if (!is_numeric($proposed) or
-    !in_array($proposed, array_keys($bible->getAvailableBibles()))) {
-    echo json_encode([
-      "error" => "Bad request",
-      "code" => 403
-    ]);
-    exit;
-  }
-
-  $succeeded = $bible->setBible($proposed);
 
   echo json_encode([
     "message" => $succeeded ? "Request Succeeded" : "Request Failed",
