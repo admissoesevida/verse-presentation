@@ -1,6 +1,6 @@
-const version = "0.0.5";
+const version = "0.0.1";
 
-const cacheName = `the-verse-${version}`;
+const cacheName = `control-${version}`;
 
 self.addEventListener('install', e => {
   caches.open(cacheName).then(cache => {

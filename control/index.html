@@ -59,9 +59,8 @@
     <main id="panel">
         <div class="topbar">
             <div id="search">
-                <input type="text" name="search" placeholder="ex.: Prov 10 22" />
+                <input id="search-term" type="text" name="search" placeholder="ex.: Prov 10 22" />
                 <button><i class="fas fa-search"></i></button>
-                <div id="loader" class="loader"></div>
             </div>
         </div>
 
@@ -78,68 +77,29 @@
 
         <div class="dash-separator"></div>
         <section class="results">
-            <h1 class="title">Resultados mais relevantes</h1>
+            <h1 class="title">Resultados da busca</h1>
             <table cellspacing="0" border="0">
                 <thead>
                     <th>Referência</th>
                     <th>Versiculo</th>
                 </thead>
                 <tbody id="results">
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
-                    </tr>
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
-                    </tr>
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
-                    </tr>
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <div class="dash-separator"></div>
-        <section class="results results-less-relevant">
-            <h1 class="title">Resultados menos relevantes</h1>
-            <table cellspacing="0" border="0">
-                <thead>
-                    <th>Referência</th>
-                    <th>Versiculo</th>
-                </thead>
-                <tbody id="results">
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
-                    </tr>
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
-                    </tr>
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento. Assim que, ó Senhor, te louvarei entre os gentios, e cantarei louvores ao teu nome</td>
-                    </tr>
-                    <tr data-verse="2">
-                        <td>Salmos 18:48</td>
-                        <td>O que me livra de meus inimigos; sim, tu me exaltas sobre os que se levantam contra mim, tu me livras do homem violento.</td>
+                    <tr>
+                        <td class="text-muted" colspan="2">Nenhum resultado.</td>
                     </tr>
                 </tbody>
             </table>
         </section>
     </main>
+    <div id="loader" class="loader"></div>
 
+    <script src="register-service-worker.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../js/font-awesome.js"></script>
     <script src="../js/loader.js"></script>
-    <script src="../js/navigation.js"></script>
+    <script src="../js/ajax.js"></script>
     <script src="../js/prototypes.js"></script>
+    <script src="../js/navigation.js"></script>
     <script src="../js/helpers.js"></script>
     <script src="app.js"></script>
   </body>

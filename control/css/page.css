@@ -1,96 +1,97 @@
 @import url('../../css/colors.css');
 @import url('../../css/fonts.css');
 @import url('../../css/loader.css');
+@import url('../../css/animations.css');
 
 body {
-    margin: 0;
-    color: #FFF;
-    background-color: var(--bg-secondary-color);
+  margin: 0;
+  color: #FFF;
+  background-color: var(--bg-secondary-color);
 }
 
 body * {
-    font-family: 'Candal', sans-serif;
-    box-sizing: border-box;
+  font-family: 'Candal', sans-serif;
+  box-sizing: border-box;
 }
 
 #logo {
-    text-align: center;
-    margin-top: 18px;
+  text-align: center;
+  margin-top: 18px;
 }
 
 #logo svg {
-    height: 40px;
-    width: 40px;
-    margin: 6px;
+  height: 40px;
+  width: 40px;
+  margin: 6px;
 }
 
 #menu {
-    width: 60px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    background: var(--bg-primary-color);
+  width: 60px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--bg-primary-color);
 }
 
 #menu .navigation {
-    text-align: center;
-    margin-top: 18px;
+  text-align: center;
+  margin-top: 18px;
 }
 
 #menu .navigation .item {
-    display: block;
-    padding: 12px 6px;
-    cursor: pointer;
-    transition: all 300ms ease;
-    user-select: none;
-    text-decoration: none;
-    color: var(--bg-secondary-font-color);
+  display: block;
+  padding: 12px 6px;
+  cursor: pointer;
+  transition: all 300ms ease;
+  user-select: none;
+  text-decoration: none;
+  color: var(--bg-secondary-font-color);
 }
 
 #menu .navigation .item:hover {
-    background-color: var(--bg-secondary-color);
-    color: var(--bg-secondary-font-color);
+  background-color: var(--bg-secondary-color);
+  color: var(--bg-secondary-font-color);
 }
 
 #menu .navigation .item:active {
-    background-color: var(--primary-color);
-    color: var(--primary-font-color);
+  background-color: var(--primary-color);
+  color: var(--primary-font-color);
 }
 
 #menu .navigation .item svg {
-    height: 24px;
-    width: 24px;
+  height: 24px;
+  width: 24px;
 }
 
 #menu .navigation .item span {
-    display: block;
-    font-size: 8px;
-    margin-top: 6px;
+  display: block;
+  font-size: 8px;
+  margin-top: 6px;
 }
 
 #panel {
-    margin-left: 60px;
-    padding: 20px 40px;
+  margin-left: 60px;
+  padding: 20px 40px;
 }
 
 .topbar {
-    display: flex;
-    flex-flow: column;
+  display: flex;
+  flex-flow: column;
 }
 
 #current {
-    background-color: var(--bg-secondary-v-color);
-    color: var(--bg-secondary-v-font-color);
-    text-align: center;
-    margin-left: 60px;
-    color: #777;
-    padding: 18px 12px;
-    line-height: 1.5;
-    font-size: 13px;
-    display: flex;
-    flex-flow: row;
-    transition: all 300ms ease;
+  background-color: var(--bg-secondary-v-color);
+  color: var(--bg-secondary-v-font-color);
+  text-align: center;
+  margin-left: 60px;
+  color: #777;
+  padding: 18px 12px;
+  line-height: 1.5;
+  font-size: 13px;
+  display: flex;
+  flex-flow: row;
+  transition: all 300ms ease;
 }
 
 #current.off .ref:before {
@@ -100,157 +101,248 @@ body * {
 }
 
 #current .ref {
-    margin-right: 6px;
-    color: var(--primary-color);
-    white-space: nowrap;
+  margin-right: 6px;
+  color: var(--primary-color);
+  white-space: nowrap;
 }
 
 #current .ref:before {
-    content: 'Atual';
-    color: var(--primary-font-color);
-    background-color: var(--primary-color);
-    font-size: 12px;
-    border-radius: 4px;
-    padding: 6px 12px;
-    margin: 6px 12px 6px 3px;
-    transition: all 300ms ease;
+  content: 'Atual';
+  color: var(--primary-font-color);
+  background-color: var(--primary-color);
+  font-size: 12px;
+  border-radius: 4px;
+  padding: 6px 12px;
+  margin: 6px 12px 6px 3px;
+  transition: all 300ms ease;
 }
 
 #current .verse {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 100px;
-    overflow: hidden;
-    text-align: left;
-    flex-grow: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100px;
+  overflow: hidden;
+  text-align: left;
+  flex-grow: 1;
 }
 
 #search {
-    border: 1px solid black;
-    display: flex;
+  border: 1px solid black;
+  display: flex;
 }
 
 #search input,
 #search button {
-    padding: 18px 24px;
-    font-size: 18px;
-    color: #FFF;
-    outline: none;
-    transition: all 300ms ease;
-    border: 1px solid var(--primary-color);
+  padding: 18px 24px;
+  font-size: 18px;
+  color: #FFF;
+  outline: none;
+  transition: all 300ms ease;
+  border: 1px solid var(--primary-color);
 }
 
 #search input {
-    background: transparent;
-    flex-grow: 1;
+  background: transparent;
+  flex-grow: 1;
 }
 
 #search input:focus,
 #search input:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 #search button {
-    background-color: var(--primary-color);
-    cursor: pointer;
-    color: var(--primary-font-color);
-    text-transform: uppercase;
+  background-color: var(--primary-color);
+  cursor: pointer;
+  color: var(--primary-font-color);
+  text-transform: uppercase;
 }
 
 #search button:hover {
-    background-color: var(--primary-v-color);
+  background-color: var(--primary-v-color);
 }
 
 #search button:active {
-    background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
 #version {
-    margin: 12px 0;
+  margin: 12px 0;
 }
 
 #version:before {
-    content: 'Versão: ';
+  content: 'Versão: ';
 }
 
 #version input {
-    display: none;
+  display: none;
 }
 
 #version label {
-    display: inline-block;
-    padding: 6px 18px;
-    margin: 0 6px;
-    border: 1px solid var(--primary-color);
-    color: var(--bg-primary-font-color);
-    cursor: pointer;
-    transition: all 300ms ease;
+  display: inline-block;
+  padding: 6px 18px;
+  margin: 0 6px;
+  border: 1px solid var(--primary-color);
+  color: var(--bg-primary-font-color);
+  cursor: pointer;
+  transition: all 300ms ease;
 }
 
 #version label:hover {
-    background-color: var(--primary-v-color);
-    color: var(--primary-v-font-color);
+  background-color: var(--primary-v-color);
+  color: var(--primary-v-font-color);
 }
 
 #version input:checked + label {
-    background-color: var(--primary-color);
-    color: var(--primary-font-color);
+  background-color: var(--primary-color);
+  color: var(--primary-font-color);
 }
 
 .results .title {
-    margin: 12px 0 24px;
+  margin: 12px 0 24px;
 }
 
 .results table {
-    border-collapse: collapse;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 .results table th {
-    text-align: left;
-    background-color: var(--bg-secondary-v-color);
-    color: var(--bg-secondary-v-font-color);
+  text-align: left;
+  background-color: var(--bg-secondary-v-color);
+  color: var(--bg-secondary-v-font-color);
 }
 
-.results table td:first-child {
+.results table th:first-child {
+  width: 250px;
+}
+
+/*.results table td:first-child {
     white-space: nowrap;
 }
-
+*/
 .results table th,
 .results table td {
-    padding: 12px 16px;
-    font-size: 14px;
+  padding: 12px 16px;
+  font-size: 14px;
+  animation: fadeIn 300ms ease;
 }
 
 .results table tbody tr {
-    transition: all 300ms ease;
-    cursor: pointer;
-    border-bottom: 1px solid var(--bg-secondary-v-color);
+  transition: all 300ms ease;
+  cursor: pointer;
+  border-bottom: 1px solid var(--bg-secondary-v-color);
 }
 
 .results table tbody tr:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .results table tbody tr:hover {
-    background-color: var(--bg-secondary-v-color);
-    color: var(--bg-secondary-v-font-color);
+  background-color: var(--bg-secondary-v-color);
+  color: var(--bg-secondary-v-font-color);
 }
 
 .results table tbody tr:active {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .loader {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    border-color: var(--primary-color) !important;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  border-color: var(--primary-color) !important;
 }
 
 .dash-separator {
-    height: 3px;
-    border-radius: 3px;
-    background: var(--primary-color);
-    width: 60px;
-    margin-top: 36px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--primary-color);
+  width: 60px;
+  margin-top: 36px;
+}
+
+.text-muted {
+  color: var(--bg-primary-color);
+  pointer-events: none;
+}
+
+@media screen and (max-width: 500px) {
+  #logo {
+    display: none;
+  }
+
+  #menu {
+    width: 100%;
+    position: fixed;
+    top: inherit;
+    padding: 6px;
+    background: var(--bg-primary-color);
+  }
+
+  #menu .navigation {
+    text-align: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  #menu .navigation .item.next {
+    order: 1;
+  }
+
+  #menu .navigation .item {
+      display: flex;
+      padding: 24px 36px;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
+  }
+
+  #current {
+    margin-left: 0;
+    height: 55px;
+  }
+
+  #current .ref:before {
+    display: none;
+  }
+
+  #panel {
+    margin: 0;
+    padding: 12px;
+  }
+
+  #search input,
+  #search button {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  #search input {
+    width: 100%;
+  }
+
+  #version:before {
+    content: '';
+  }
+
+  #version label {
+    margin: 0 12px 0 0;
+  }
+
+  .dash-separator {
+    margin-top: 18px;
+  }
+
+  .results .title {
+    margin: 6px 0 18px;
+    font-size: 16px;
+  }
+
+  .results table th,
+  .results table td {
+    font-size: 12px;
+    padding: 12px;
+  }
 }

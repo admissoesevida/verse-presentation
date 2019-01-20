@@ -343,21 +343,26 @@ class BibleAPI
 
   /**
    * @param string $searchString
+   * @param bool $case_sensitive
    * @return array
    */
-  private function preProcess($searchString)
+  private function preProcess($searchString, $case_sensitive = true)
   {
-    $searchParts = explode(" ", $searchString);
+    if (!$case_sensitive) {
+      $searchString = strtoupper($searchString);
+    }
 
-    $verse = (int)array_pop($searchParts);
-    $chapter = (int)array_pop($searchParts);
+    $searchParts = explode(" ", trim($searchString));
+
+    $verse = array_pop($searchParts);
+    $chapter = array_pop($searchParts);
 
     if (!is_numeric($chapter)) {
-      throw new Exception("Invalid Chapter", 403);
+      throw new Exception("Invalid Chapter. Expected number, given '$chapter'", 403);
     }
 
     if (!is_numeric($verse)) {
-      throw new Exception("Invalid Verse", 403);
+      throw new Exception("Invalid Verse. Expected number, given '$verse'", 403);
     }
 
     $bookWords = array_values(array_filter($searchParts, function ($item) {
@@ -365,7 +370,7 @@ class BibleAPI
     }));
 
     if (count($bookWords) === 0) {
-      throw new Exception("Invalid Book name", 403);
+      throw new Exception("No book name. It must come first, example 'Prov 1 2'", 403);
     }
 
     return [
@@ -381,10 +386,16 @@ class BibleAPI
    */
   public function searchVerses($searchString)
   {
-    $queryData = $this->preProcess($searchString);
+    try {
+      $queryData = $this->preProcess($searchString, false);
+    } catch (Exception $e) {
+      throw $e;
+    }
 
     $queryBookNames = [];
     foreach ($queryData["bookWords"] as $word) {
+      $queryBookNames[] = "`name` = '$word'";
+      $queryBookNames[] = "`name_no_special_chars` = '$word'";
       $queryBookNames[] = "`name` LIKE '%$word%'";
       $queryBookNames[] = "`name_no_special_chars` LIKE '%$word%'";
     }
@@ -420,7 +431,11 @@ class BibleAPI
    */
   public function searchLessRelevantVerses($searchString)
   {
-    $queryData = $this->preProcess($searchString);
+    try {
+      $queryData = $this->preProcess($searchString);
+    } catch (Exception $e) {
+      throw $e;
+    }
 
     $queryBookAbbrevs = [];
     foreach ($queryData["bookWords"] as $word) {
@@ -444,7 +459,7 @@ class BibleAPI
 
         $result = $this->bible->query($ssql)->fetch_assoc();
         if ($result !== null) {
-          $results["lessRelevant"][] = $result;
+          $results[] = $result;
         }
       }
     }

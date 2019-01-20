@@ -15,7 +15,29 @@ function vlog($item)
   echo "<br>";
 }
 
-function response($content, $code = 200) {
+/**
+ * @param  mixed       $content
+ * @param  int|integer $code
+ * @return void
+ */
+function response($content, int $code = 200) {
+  print_json($content, $code);
+}
+
+/**
+ * @param  Exception $exception
+ * @return void
+ */
+function response_error(Exception $exception) {
+  print_json($exception->getMessage(), $exception->getCode());
+}
+
+/**
+ * @param  mixed $content
+ * @param  int    $code
+ * @return void
+ */
+function print_json($content, int $code) {
   header('Content-Type: application/json');
   echo json_encode([
     "code" => $code,

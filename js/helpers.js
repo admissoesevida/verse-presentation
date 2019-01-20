@@ -1,43 +1,47 @@
 const fetchVerse = async () => {
-  try {
-    const url = `../php/api/the_verse.php`;
-    const rawVerse = await fetch(url);
-
-    return await rawVerse.json();;
-  } catch (reason) {
-    console.error('Error on fetching the Verse\n', reason);
-  }
-  return false;
+  return await get('../php/api/the_verse.php', 'Error getting current verse', false);
 };
 
-const changeVersion = async (newVersion) => {
-  const request = new FormData();
+const fetchRelevantResults = async mostRelevant => {
+  return await post(
+    '../php/api/search.php',
+    { mostRelevant },
+    'Error on fetching the results\n'
+  );
+};
 
-  request.set('versionId', newVersion);
-  try {
-    const rawResponse = await fetch('../php/api/set_version.php', {
-      method: 'POST',
-      body: request
-    });
+const fetchLessRelevantResults = async lessRelevant => {
+  return await post(
+    '../php/api/search.php',
+    { lessRelevant },
+    'Error on fetching the results\n'
+  );
+};
 
-    return await rawResponse.json();
-  } catch (reason) {
-    console.error('Error on changing the Version\n', reason);
+const changeVersion = async (versionId) => {
+  return await post(
+    '../php/api/set_version.php',
+    { versionId },
+    'Error changing the Version\n'
+  );
+};
+
+const setVerse = async (bookId, chapter, verse) => {
+  if (!bookId || !chapter || !verse) {
+    return false;
   }
-  return false;
+
+  return await post(
+    '../php/api/set_verse.php',
+    { bookId, chapter, verse },
+    'Error on setting the Verse\n'
+  );
 };
 
 const getAvailableVersions = async () => {
-  try {
-    const url = `../php/api/get_available_versions.php`;
-    const rawVersions = await fetch(url);
-    const versions = await rawVersions.json();
+  const { content } = await get('../php/api/get_available_versions.php');
 
-    return versions.content;
-  } catch (reason) {
-    console.error('Error on fetching the Verse\n', reason);
-  }
-  return false;
+  return content;
 };
 
 const updateDom = async () => {
@@ -150,4 +154,23 @@ if (openFullScreen) {
     openFullScreen.addEventListener('click', event => {
       toggleFullscreen(event.target, 'isFullScreen');
     });
+}
+
+const handleInput = terms => {
+  const pieces = terms.split(' ').filter(i => i !== '');
+
+  if (pieces.length < 3) {
+    return false;
+  }
+
+  const verse = pieces.pop();
+  const chapter = pieces.pop();
+
+  if (isNaN(verse) || isNaN(chapter)){
+    return false;
+  }
+
+  const book = pieces.join(' ');
+
+  return { book, chapter, verse };
 }

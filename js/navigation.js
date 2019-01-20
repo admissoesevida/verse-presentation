@@ -1,12 +1,16 @@
-document.addEventListener('keydown', async ({ key }) => {
-  if (key === 'ArrowLeft') {
-    await navigate('prev');
-  }
+const body = document.querySelector('body');
 
-  if (key === 'ArrowRight') {
-    await navigate('next');
-  }
-});
+if (body.hasClass('arrow-navigation')) {
+  document.addEventListener('keydown', async ({ key }) => {
+    if (key === 'ArrowLeft') {
+      await navigate('prev');
+    }
+
+    if (key === 'ArrowRight') {
+      await navigate('next');
+    }
+  });
+}
 
 const nextArea = document.querySelector("#mobile-controls #next");
 const prevArea = document.querySelector("#mobile-controls #prev");
