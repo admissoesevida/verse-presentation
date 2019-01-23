@@ -1,6 +1,11 @@
 <?php
 
-include "credentials.php";
+if (file_exists("credentials.php")) {
+    include "credentials.php";
+} else {
+    include "credentials.docker.php";
+}
+
 include "create_mysqli_connection.php";
 
 $connection["biblia-app"] = create_mysqli_connection($credentials["biblia-app"]);
