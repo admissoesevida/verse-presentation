@@ -5,7 +5,7 @@
 
 body {
   margin: 0;
-  color: #FFF;
+  color: #fff;
   background-color: var(--bg-secondary-color);
 }
 
@@ -135,7 +135,7 @@ body * {
 #search button {
   padding: 18px 24px;
   font-size: 18px;
-  color: #FFF;
+  color: #fff;
   outline: none;
   transition: all 300ms ease;
   border: 1px solid var(--primary-color);
@@ -249,9 +249,16 @@ body * {
 
 .loader {
   position: fixed;
-  bottom: 10px;
+  bottom: -100px;
+  opacity: 0;
   left: 10px;
   border-color: var(--primary-color) !important;
+  transition: all 300ms;
+}
+
+.loader.active {
+  bottom: 10px;
+  opacity: 1;
 }
 
 .dash-separator {
@@ -292,11 +299,11 @@ body * {
   }
 
   #menu .navigation .item {
-      display: flex;
-      padding: 24px 36px;
-      flex-flow: column;
-      justify-content: center;
-      align-items: center;
+    display: flex;
+    padding: 24px 36px;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
   }
 
   #current {
@@ -344,5 +351,17 @@ body * {
   .results table td {
     font-size: 12px;
     padding: 12px;
+  }
+
+  .loader {
+    bottom: initial;
+    left: initial;
+    top: -100px;
+    right: 20px;
+  }
+
+  .loader.active {
+    bottom: initial;
+    top: 10px;
   }
 }

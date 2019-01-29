@@ -1,0 +1,40 @@
+{
+  "name": "Bíblia",
+  "short_name": "Bíblia",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#222831",
+  "description": "Aplicativo para apresentação de versículos da Bíblia.",
+  "icons": [
+    {
+      "src": "./css/icon/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./css/icon/apple-touch-icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "./css/icon/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "./css/icon/apple-touch-icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "./css/icon/favicon-128.png",
+      "sizes": "168x168",
+      "type": "image/png"
+    },
+    {
+      "src": "./css/icon/favicon-196x196.png",
+      "sizes": "196x196",
+      "type": "image/png"
+    }
+  ]
+}

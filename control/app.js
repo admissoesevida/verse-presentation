@@ -1,52 +1,51 @@
 let CURRENT_VERSE = '';
 let PREVIOUS_VALUE = '';
 
+let CHECK_IN_PROGRESS = false;
+
 const checkVerseUpdate = async () => {
+  CHECK_IN_PROGRESS = true;
   const nextVerse = await fetchVerse();
 
   if (nextVerse && !CURRENT_VERSE.equalsTo(nextVerse)) {
     CURRENT_VERSE = nextVerse;
-    console.log(CURRENT_VERSE);
     await updateControlVerse();
   }
+
+  CHECK_IN_PROGRESS = false;
 };
 
 const setVersionListeners = async () => {
-  const versionSwitchers = document.querySelectorAll("#version input");
+  const versionSwitchers = document.querySelectorAll('#version input');
 
   if (!versionSwitchers) {
     return;
   }
 
   for (const option of versionSwitchers) {
-    option.addEventListener(
-      'change',
-      async ({target}) => {
-
-        try {
-          await changeVersion(target.dataset.id);
-
-        } catch (e) {
-          console.error(e);
-        }
-
-        const search = document.querySelector("#search-term");
-
-        if (!search) return;
-
-        await buildTables(search.value);
+    option.addEventListener('change', async ({ target }) => {
+      try {
+        await changeVersion(target.dataset.id);
+      } catch (e) {
+        console.error(e);
       }
-    );
-  }
-}
 
-const rowSetVerse = async ({currentTarget: row}) => {
-  const {bookId, chapter, verse} = row.dataset;
+      const search = document.querySelector('#search-term');
+
+      if (!search) return;
+
+      await buildTables(search.value);
+    });
+  }
+};
+
+const rowSetVerse = async ({ currentTarget: row }) => {
+  const { bookId, chapter, verse } = row.dataset;
   await setVerse(bookId, chapter, verse);
 };
 
 const setSearchListener = () => {
-  const search = document.querySelector("#search-term");
+  const search = document.querySelector('#search-term');
 
   if (!search) {
     return;
@@ -61,52 +60,52 @@ const setSearchListener = () => {
 
     await buildTables(terms);
   });
-}
+};
 
 const buildTables = async terms => {
   const relevantCount = await buildRelevantTable(terms);
   const lessRelevantCount = await buildLessRelevantTable(terms);
 
-  if ((relevantCount + lessRelevantCount) === 0) {
+  if (relevantCount + lessRelevantCount === 0) {
     const table = document.querySelector('#results');
     const row = table.insertRow();
     const emptyCell = row.insertCell();
-    emptyCell.colSpan = "2";
-    emptyCell.className = "text-muted";
+    emptyCell.colSpan = '2';
+    emptyCell.className = 'text-muted';
     emptyCell.innerHTML = 'Nenhum resultado para essa busca.';
   }
-}
+};
 
 const buildRelevantTable = async terms => {
   if (!handleInput(terms)) {
     return;
   }
 
-  const {content} = await fetchRelevantResults(terms);
+  const { content } = await fetchRelevantResults(terms);
 
   buildTable('#results', content.results);
 
   return content.results.length;
-}
+};
 
 const buildLessRelevantTable = async terms => {
   if (!handleInput(terms)) {
     return;
   }
 
-  const {content} = await fetchLessRelevantResults(terms);
+  const { content } = await fetchLessRelevantResults(terms);
 
   buildTable('#results', content.results, false);
 
   return content.results.length;
-}
+};
 
 const buildTable = (selector, results, clean = true) => {
   const table = document.querySelector(selector);
 
   if (clean) table.innerHTML = '';
 
-  for(const {book, bookId, chapter, verse, text} of results) {
+  for (const { book, bookId, chapter, verse, text } of results) {
     const row = table.insertRow();
     row.dataset.bookId = bookId;
     row.dataset.chapter = chapter;
@@ -119,28 +118,28 @@ const buildTable = (selector, results, clean = true) => {
 
     row.addEventListener('click', rowSetVerse);
   }
-}
+};
 
 const initialize = async () => {
-  const {availableVersions, currentVersion} = await getAvailableVersions();
+  const { availableVersions, currentVersion } = await getAvailableVersions();
 
-  const versions = document.querySelector("#version");
-  versions.innerHTML = "";
+  const versions = document.querySelector('#version');
+  versions.innerHTML = '';
 
   Object.keys(availableVersions).map(id => {
     const version = availableVersions[id];
 
-    const input = document.createElement("input");
+    const input = document.createElement('input');
     input.dataset.id = id;
     input.id = version;
-    input.type = "radio";
-    input.name = "version";
+    input.type = 'radio';
+    input.name = 'version';
 
     if (parseInt(currentVersion) === parseInt(id)) {
       input.checked = true;
     }
 
-    const label = document.createElement("label");
+    const label = document.createElement('label');
     label.htmlFor = version;
     label.innerHTML = version.toUpperCase();
 
@@ -152,6 +151,7 @@ const initialize = async () => {
   setSearchListener();
 
   setInterval(async () => {
+    if (CHECK_IN_PROGRESS) return;
     await checkVerseUpdate();
   }, 200);
 };

@@ -1,0 +1,61 @@
+@import url('colors.css');
+@import url('fonts.css');
+
+body {
+  margin: 0;
+  background: var(--bg-secondary-color);
+  color: var(--bg-secondary-font-color);
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.icon {
+  display: flex;
+}
+
+.icon a {
+  display: flex;
+  flex-flow: column;
+  color: var(--bg-secondary-font-color);
+  text-decoration: none;
+  align-items: center;
+  padding: 36px;
+  border: 3px solid var(--bg-secondary-font-color);
+  border-radius: 12px;
+  transition: all 300ms;
+  margin: 12px;
+  width: 400px;
+}
+
+.icon a:hover {
+  color: var(--bg-secondary-color);
+  background: var(--bg-secondary-font-color);
+}
+
+.icon svg {
+  font-size: 70px;
+  margin-bottom: 6px;
+}
+
+.icon span {
+  font-size: 24px;
+  font-family: 'Candal';
+}
+
+@media screen and (max-width: 500px) {
+  .icon a {
+    width: calc(100vw - 36px - 36px);
+  }
+}
