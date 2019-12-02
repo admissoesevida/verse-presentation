@@ -19,11 +19,17 @@ const fetchLessRelevantResults = async lessRelevant => {
 };
 
 const changeVersion = async (versionId) => {
-  return await post(
+  let updateVerse = await post(
     '../php/api/set_version.php',
     { versionId },
     'Error changing the Version\n'
   );
+
+  if (updateVerse) {
+    socket.emit("updateVerse", 1);
+  }
+
+  return updateVerse;
 };
 
 const setVerse = async (bookId, chapter, verse) => {
@@ -31,11 +37,17 @@ const setVerse = async (bookId, chapter, verse) => {
     return false;
   }
 
-  return await post(
+  const updateVerse = await post(
     '../php/api/set_verse.php',
     { bookId, chapter, verse },
     'Error on setting the Verse\n'
   );
+
+  if (updateVerse) {
+    socket.emit("updateVerse", 1);
+  }
+
+  return updateVerse;
 };
 
 const getAvailableVersions = async () => {

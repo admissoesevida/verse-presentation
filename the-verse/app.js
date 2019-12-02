@@ -1,18 +1,17 @@
 let CURRENT_VERSE = '';
 
-let CHECK_IN_PROGRESS = false;
+const updateVerse = async () => {
+  const verse = await fetchVerse();
 
-setInterval(async () => {
-  if (CHECK_IN_PROGRESS) return;
-
-  CHECK_IN_PROGRESS = true;
-  const nextVerse = await fetchVerse();
-
-  if (nextVerse && !CURRENT_VERSE.equalsTo(nextVerse)) {
-    CURRENT_VERSE = nextVerse;
+  if (verse && !CURRENT_VERSE.equalsTo(verse)) {
+    CURRENT_VERSE = verse;
     await updateDom();
     changeBackgroundImage();
   }
+}
 
-  CHECK_IN_PROGRESS = false;
-}, 200);
+updateVerse();
+
+socket.on('updateVerse', async () => {
+  updateVerse();
+});

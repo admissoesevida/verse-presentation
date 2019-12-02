@@ -88,7 +88,7 @@
       @import url(css/page.css);
     </style>
   </head>
-  <body id="app-panel">
+  <body id="app-panel" class="arrow-navigation">
     <div id="current">
       <span class="ref"></span> <span class="verse"></span>
     </div>
@@ -117,7 +117,7 @@
             name="search"
             placeholder="ex.: Prov 10 22"
           />
-          <button><i class="fas fa-search"></i></button>
+          <button class="bt-teste"><i class="fas fa-search"></i></button>
         </div>
       </div>
 
@@ -148,9 +148,11 @@
       </section>
     </main>
     <div id="loader" class="loader"></div>
-
+    
     <script src="register-service-worker.js"></script>
+    <script src="../js/socket-2.0.1.io.js"></script>
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/socket.js"></script>
     <script src="../js/font-awesome.js"></script>
     <script src="../js/loader.js"></script>
     <script src="../js/ajax.js"></script>

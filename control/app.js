@@ -1,19 +1,14 @@
 let CURRENT_VERSE = '';
 let PREVIOUS_VALUE = '';
 
-let CHECK_IN_PROGRESS = false;
+const updateVerse = async () => {
+  const verse = await fetchVerse();
 
-const checkVerseUpdate = async () => {
-  CHECK_IN_PROGRESS = true;
-  const nextVerse = await fetchVerse();
-
-  if (nextVerse && !CURRENT_VERSE.equalsTo(nextVerse)) {
-    CURRENT_VERSE = nextVerse;
+  if (verse && !CURRENT_VERSE.equalsTo(verse)) {
+    CURRENT_VERSE = verse;
     await updateControlVerse();
   }
-
-  CHECK_IN_PROGRESS = false;
-};
+}
 
 const setVersionListeners = async () => {
   const versionSwitchers = document.querySelectorAll('#version input');
@@ -150,10 +145,10 @@ const initialize = async () => {
   await setVersionListeners();
   setSearchListener();
 
-  setInterval(async () => {
-    if (CHECK_IN_PROGRESS) return;
-    await checkVerseUpdate();
-  }, 200);
+  updateVerse();
+  socket.on('updateVerse', async () => {
+    await updateVerse();
+  });
 };
 
 initialize();

@@ -50,7 +50,8 @@ async function navigate(direction) {
     const url = `../php/api/navigation.php?${direction}`;
     const rawVerse = await fetch(url);
     const verse = await rawVerse.json();
-
+    socket.emit('updateVerse', 1);
+    
     if (verse.code !== 200) {
       console.log(verse);
     }
