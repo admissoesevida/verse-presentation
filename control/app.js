@@ -115,6 +115,17 @@ const buildTable = (selector, results, clean = true) => {
   }
 };
 
+const openWindow = (url) => {
+  if (window.innerWidth <= 640)
+    window.open(url , '_blank');
+  else {
+    var width = window.innerWidth * 0.66 ;
+    var height = width * window.innerHeight / window.innerWidth ;
+
+    window.open(url , 'newwindow', 'width=' + width + ', height=' + height + ', top=' + ((window.innerHeight - height) / 2) + ', left=' + ((window.innerWidth - width) / 2));
+  }
+}
+
 const initialize = async () => {
   const { availableVersions, currentVersion } = await getAvailableVersions();
 
@@ -149,6 +160,12 @@ const initialize = async () => {
   socket.on('updateVerse', async () => {
     await updateVerse();
   });
+
+  const nodesNew = document.querySelectorAll('a[target^="_new"]');
+  for (var i = 0; i < nodesNew.length; ++i) {
+    var href = nodesNew[i].href;
+    nodesNew[i].addEventListener('click', () => openWindow(href));
+  }
 };
 
 initialize();
