@@ -164,7 +164,10 @@ const initialize = async () => {
   const nodesNew = document.querySelectorAll('a[target^="_new"]');
   for (var i = 0; i < nodesNew.length; ++i) {
     var href = nodesNew[i].href;
-    nodesNew[i].addEventListener('click', () => openWindow(href));
+    nodesNew[i].addEventListener('click', (event) => {
+      event.preventDefault();
+      openWindow(href);
+    });
   }
 };
 
