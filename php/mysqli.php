@@ -1,6 +1,6 @@
 <?php
 
-if (file_exists("credentials.php")) {
+if (file_exists(__DIR__ . "\credentials.php")) {
     include "credentials.php";
 } else {
     include "credentials.docker.php";
