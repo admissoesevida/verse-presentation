@@ -1,7 +1,9 @@
 const body = document.querySelector('body');
 
 if (body.hasClass('arrow-navigation')) {
-  document.addEventListener('keydown', async ({ key }) => {
+  document.addEventListener('keydown', async ({ key, target }) => {
+    if(target.tagName === "INPUT") return;
+
     if (key === 'ArrowLeft') {
       await navigate('prev');
     }
