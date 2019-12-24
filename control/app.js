@@ -41,7 +41,7 @@ const setVersion = async (versionId) => {
   if (!versionSwitchers) return;
 
   for (const option of versionSwitchers) {
-    option.dataset.id == versionId ? option.checked = true : option.checked = false;
+    option.checked = option.dataset.id == versionId;
   }
 };
 
