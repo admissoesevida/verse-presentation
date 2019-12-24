@@ -25,10 +25,6 @@ const changeVersion = async (versionId) => {
     'Error changing the Version\n'
   );
 
-  if (updateVerse) {
-    socket.emit("updateVerse", 1);
-  }
-
   return updateVerse;
 };
 

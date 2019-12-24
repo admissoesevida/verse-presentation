@@ -21,6 +21,7 @@ const setVersionListeners = async () => {
     option.addEventListener('change', async ({ target }) => {
       try {
         await changeVersion(target.dataset.id);
+        socket.emit("updateVerse", target.dataset.id);
       } catch (e) {
         console.error(e);
       }
@@ -31,6 +32,16 @@ const setVersionListeners = async () => {
 
       await buildTables(search.value);
     });
+  }
+};
+
+const setVersion = async (versionId) => {
+  const versionSwitchers = document.querySelectorAll('#version input');
+
+  if (!versionSwitchers) return;
+
+  for (const option of versionSwitchers) {
+    option.dataset.id == versionId ? option.checked = true : option.checked = false;
   }
 };
 
@@ -157,7 +168,8 @@ const initialize = async () => {
   setSearchListener();
 
   updateVerse();
-  socket.on('updateVerse', async () => {
+  socket.on('updateVerse', async (versionId) => {
+    setVersion(versionId);
     await updateVerse();
   });
 
